@@ -1,0 +1,46 @@
+322CA - Mihai-Alexandru Georgescu |
+Proiect - Etapa 1 - POO TV        |
+__________________________________|
+
+-> Scurta descriere a programului:
+
+- Programul simuleaza un Movie Streaming Platform, oferind posibilitatea unui utilizator de a executa diverse actiuni
+simple, intr-o prima etapa, precum login, register, search sau filter.
+
+-> Flow-ul programului:
+
+- Se primesc din fisierele JSON informatiile de input (actiunile de realizat), pe care le mapez in clasa inputdata.
+- Parcurg intr-un for loop toate aceste actiuni si verific pentru fiecare daca este de tip "on page" sau "change page",
+in functie de care apelez metoda corespunzatoare, in care rezolv propriu zis actiunea respectiva.
+- In final, dupa realizarea actiunilor cerute, toate output-urile se vor regasi intr-un fisier JSON.
+
+-> Clasele principale folosite:
+
+- clasele "de baza": User, Credentials, Movie, Filter, Sort, Contains.
+
+- CurrInfo: retine informatiile despre pagina (situatia) curenta: numele paginii, lista de filme, user-ul curent,
+filmul (folosit ulterior in cazul See Details)
+
+- ChangePageActions: clasa destinata paginilor: login, register, movie, see details, upgrades, logout. Pentru fiecare
+dintre acestea am grija sa initializez informatiile curente din currInfo corespunzator, intrucat voi avea nevoie de
+ele in continuare, pentru a rezolva propriu-zis actiunile de pe fiecare tip de pagina in parte.
+
+- OnPageActions: contine metodele care se rezolva propriu zis actiunile pe care le poate face un user in cadrul paginii
+pe care se afla la un moment dat: login, register, search, filter etc. Fiecare din aceste actiuni de tip "on page" are
+cate o metoda care o rezolva, metoda ce este apelata in functie de switch case-ul de la inceputul clasei OnPageActions.
+
+- GenerateOutput: creez un nod nou in ArrayNode-ul output, pentru a putea afisa fie output-ul specific unei erori,
+fie output-ul corespunzator unei actiuni realizate cu succes.
+
+-> Mentiuni pe care le consider relevante despre actiunile "on page":
+
+- Atat pentru actiunea de "login", cat si pentru cea de "register", parcurg userii din database (inputdata) si verific
+daca actiunea respectiva se poate realiza.
+- In cadrul "search", caut sa afisez doar filmele din baza de date care incep cu string-ul "startsWith".
+- In cadrul "filter" am suprascris metoda Comparator si am creat 8 metode pentru sortare in functie de rating si
+duration, avand grija sa tratez toate cazurile (rating si duration pot lua valorile: "increasing", "decreasing", null).
+- Am incercat sa implementez si actiunile de "buy tokens" si "buy premium account", insa nu am reusit sa le finalizez.
+
+-> Design Patterns:
+- In cadrul programului ma folosesc de design pattern-ul Singleton, pe care l-am implementat pentru clasele
+ChangePageActions, respectiv OnPageActions (pentru a instantia aceste clase o singura data).
