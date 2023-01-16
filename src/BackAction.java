@@ -5,6 +5,21 @@ import java.util.ArrayList;
 
 public final class BackAction {
 
+    private static BackAction instance = null;
+
+    private BackAction() { }
+
+    /**
+     * singleton pentru backAction
+     * @return
+     */
+    public static BackAction getInstance() {
+        if (instance == null) {
+            instance = new BackAction();
+        }
+        return instance;
+    }
+
     /**
      * metoda ce rezolva actiunea de "back" intre pagini
      * @param currinfo

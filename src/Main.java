@@ -39,16 +39,18 @@ public class Main {
                                                         inputdata, output, objectMapper);
 
                 } else if (action.getType().equals("database")) {
+                    DatabaseActions databaseActions = DatabaseActions.getInstance();
                     if (action.getFeature().equals("add")) {
-                        DatabaseActions.addMethod(currPage, action, inputdata,
+                        databaseActions.addMethod(currPage, action, inputdata,
                                                     output, objectMapper);
                     } else if (action.getFeature().equals("delete")) {
-                        DatabaseActions.deleteMethod(currPage, action, inputdata,
+                        databaseActions.deleteMethod(currPage, action, inputdata,
                                                         output, objectMapper);
                     }
 
                 } else if (action.getType().equals("back")) {
-                    BackAction.backMethod(currPage, pagesList, action, inputdata,
+                    BackAction backAction = BackAction.getInstance();
+                    backAction.backMethod(currPage, pagesList, action, inputdata,
                                             output, objectMapper);
 
                     // GenerateOutput.printError(output, objectMapper);

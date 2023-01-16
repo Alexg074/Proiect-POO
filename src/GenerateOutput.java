@@ -110,26 +110,26 @@ public final class GenerateOutput {
         if (currinfo.getUser().getNotifications() != null) {
             for (Notification notification : currinfo.getUser().getNotifications()) {
                 Notification newNotification = new Notification(notification.getMovieName(),
-                                                                notification.getMessage());
+                        notification.getMessage());
 
                 // la finalul actiunilor afisez o recomandare pt user ul premium
-            if (currinfo.getUser().getCredentials().getAccountType().equals("premium")) {
-                // daca nu a cumparat filmul => nicio recomandare
-                if (currinfo.getUser().getPurchasedMovies() == null) {
+                if (currinfo.getUser().getCredentials().getAccountType().equals("premium")) {
+                    // daca nu a cumparat filmul => nicio recomandare
+                    if (currinfo.getUser().getPurchasedMovies() == null) {
+                        Notification premiumNotification = new Notification();
+                        premiumNotification.setMovieName("No recommendation");
+                        premiumNotification.setMessage("Recommendation");
+
+                        currinfo.getUser().getNotifications().add(premiumNotification);
+                    }
+
+                    // sortez descrescator filmele in functie de nr de like-uri
+
                     Notification premiumNotification = new Notification();
-                    premiumNotification.setMovieName("No recommendation");
                     premiumNotification.setMessage("Recommendation");
-
                     currinfo.getUser().getNotifications().add(premiumNotification);
+
                 }
-
-                // sortez descrescator filmele in functie de nr de like-uri
-
-                Notification premiumNotification = new Notification();
-                premiumNotification.setMessage("Recommendation");
-                currinfo.getUser().getNotifications().add(premiumNotification);
-
-            }
                 newNotificationsList.add(newNotification);
             }
         }

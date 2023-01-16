@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import java.util.ArrayList;
 
 /**
- * Clasa contine metodele pentru pagini (login, register, movies, see details, upgrades),
- * implementate pe rand - in README
+ * clasa contine metodele pentru pagini (login, register, movies, see details, upgrades, logout),
  */
 public final class ChangePageActions {
 
@@ -14,7 +13,7 @@ public final class ChangePageActions {
     private ChangePageActions() { }
 
     /**
-     * Singleton pentru changePageActions
+     * singleton pentru changePageActions
      * @return
      */
     public static ChangePageActions getInstance() {

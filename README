@@ -1,33 +1,46 @@
-322CA - Mihai-Alexandru Georgescu |
-Proiect - POO TV                  |
-__________________________________|
+==================================
+322CA - Mihai-Alexandru Georgescu
+Proiect - POO TV
+==================================
 
 -> Scurta descriere a programului:
 
-- Programul simuleaza un Movie Streaming Platform, oferind posibilitatea unui utilizator de a executa diverse actiuni
-simple, intr-o prima etapa, precum login, register, search sau filter.
+- Programul simuleaza un Movie Streaming Platform, oferind posibilitatea unui utilizator care doreste sa se relaxeze
+prin vizionarea unui film sa isi creeze un cont standard sau premium, sa parcurga filmele existente in baza de date
+a platformei, sa isi aleaga si cumpere filmul dorit dintr-o lista de filme disponibile sau sa navigheze pur si simplu
+printre paginile platformei. In urma vizionarii unui film, acesta ii poate oferi un like sau un rate.
+Totodata, el se poate abona la un anumit gen de filme. In plus, in baza de date pot fi adaugate noi filme sau sterse
+unele existente, anumiti utilizatori urmand a fi notificati de aceste modificari.
 
 -> Flow-ul programului:
 
 - Se primesc din fisierele JSON informatiile de input (actiunile de realizat), pe care le mapez in clasa inputdata.
-- Parcurg intr-un for loop toate aceste actiuni si verific pentru fiecare daca este de tip "on page" sau "change page",
-in functie de care apelez metoda corespunzatoare, in care rezolv propriu zis actiunea respectiva.
-- In final, dupa realizarea actiunilor cerute, toate output-urile se vor regasi intr-un fisier JSON.
+- Declar o lista pagesList cu elemente de tip CurrInfo, in care voi retine informatiile de pe fiecare pagina vizitata.
+- Parcurg intr-un for loop toate aceste actiuni si verific pentru fiecare daca este de tip "on page", "change page",
+"database" sau "back", in functie de care apelez metoda corespunzatoare, in care rezolv propriu zis actiunea respectiva.
+- La final, dupa realizarea actiunilor cerute, toate output-urile se vor regasi intr-un fisier JSON.
 
 -> Clasele principale folosite:
 
-- clasele "de baza": User, Credentials, Movie, Filter, Sort, Contains.
+- clasele "de baza": User, Credentials, Movie, Actions, Filter, Sort, Contains.
 
 - CurrInfo: retine informatiile despre pagina (situatia) curenta: numele paginii, lista de filme, user-ul curent,
-filmul (folosit ulterior in cazul See Details)
+filmul (folosit ulterior in cazul See Details).
 
 - ChangePageActions: clasa destinata paginilor: login, register, movie, see details, upgrades, logout. Pentru fiecare
 dintre acestea am grija sa initializez informatiile curente din currInfo corespunzator, intrucat voi avea nevoie de
-ele in continuare, pentru a rezolva propriu-zis actiunile de pe fiecare tip de pagina in parte.
+ele in continuare, pentru a rezolva propriu-zis actiunile de pe fiecare tip de pagina in parte. De asemenea, mereu
+cand ma aflu pe pagina de "movies" voi afisa lista curenta de filme vizibile pentru utilizatorul curent (filmele
+nebanate), in timp ce pe pagina de "see details" voi afisa informatiile despre filmul curent.
 
 - OnPageActions: contine metodele care se rezolva propriu zis actiunile pe care le poate face un user in cadrul paginii
-pe care se afla la un moment dat: login, register, search, filter etc. Fiecare din aceste actiuni de tip "on page" are
-cate o metoda care o rezolva, metoda ce este apelata in functie de switch case-ul de la inceputul clasei OnPageActions.
+pe care se afla la un moment dat: login, register, search, filter, buy tokens, purchase, rate etc. Pentru fiecare
+dintre aceste actiuni de tip "on page", am implementat cate o metoda proprie care o rezolva, metoda ce este apelata
+in functie de switch case-ul de la inceputul clasei OnPageActions.
+
+- DatabaseActions: contine metodele ce rezolva actiunile de adaugare sau stergere a unui film din baza de date.
+
+- BackAction: clasa in care am implementat metoda care trateaza actiunea de back intre pagini.
 
 - GenerateOutput: creez un nod nou in ArrayNode-ul output, pentru a putea afisa fie output-ul specific unei erori,
 fie output-ul corespunzator unei actiuni realizate cu succes.
@@ -39,8 +52,14 @@ daca actiunea respectiva se poate realiza.
 - In cadrul "search", caut sa afisez doar filmele din baza de date care incep cu string-ul "startsWith".
 - In cadrul "filter" am suprascris metoda Comparator si am creat 8 metode pentru sortare in functie de rating si
 duration, avand grija sa tratez toate cazurile (rating si duration pot lua valorile: "increasing", "decreasing", null).
-- Am incercat sa implementez si actiunile de "buy tokens" si "buy premium account", insa nu am reusit sa le finalizez.
+Inainte ma asigur sa filtrez dupa actori si genuri, in cazul in care primesc acesti parametri din input.
 
 -> Design Patterns:
 - In cadrul programului ma folosesc de design pattern-ul Singleton, pe care l-am implementat pentru clasele
 ChangePageActions, respectiv OnPageActions (pentru a instantia aceste clase o singura data).
+
+-> Feedback: mi-a facut placere sa lucrez la aceasta tema, tocmai datorita faptului ca a fost explicata bine de catre
+ echipa si a avut la baza un subiect super interesant, care personal ma fascineaza.
+ Imi pare rau ca nu am reusit sa o finalizez chiar in totalitate si sa aprofundez si implementez inca 3 design
+ pattern-uri. A fost o perioada destul de coplesitoare din punct de vedere a sarcinilor academice,
+ astfel ca a trebuit sa reusesc sa imi impart atentia si eforturile simultan pe 3-4 task-uri si materii saptamanal.

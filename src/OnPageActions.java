@@ -56,7 +56,7 @@ public final class OnPageActions {
                 break;
             case "buy premium account":
                 buyPremiumAccountMethod(currinfo, pagesList, action,
-                                        inputdata, output, objectMapper);
+                        inputdata, output, objectMapper);
                 break;
             case "buy tokens":
                 buyTokensMethod(currinfo, pagesList, action, inputdata, output, objectMapper);
@@ -158,8 +158,8 @@ public final class OnPageActions {
                 // actualizez informatiile curente despre pagina, user si restu
                 Credentials credentials = action.getCredentials();
                 currinfo.setUser(new User(credentials.getName(), credentials.getPassword(),
-                                            credentials.getAccountType(), credentials.getCountry(),
-                                            credentials.getBalance()));
+                        credentials.getAccountType(), credentials.getCountry(),
+                        credentials.getBalance()));
                 currinfo.getUser().setTokensCount(0);
                 currinfo.getUser().setNumFreePremiumMovies(15);
                 currinfo.getUser().setPurchasedMovies(null);
@@ -427,86 +427,77 @@ public final class OnPageActions {
             for (Movie movie : currinfo.getMoviesList()) {
                 int foundActor = 0;
                 if (action.getFilters().getContains() != null
-                    && action.getFilters().getContains().getActors() != null) {
+                        && action.getFilters().getContains().getActors() != null) {
                     for (String actor : movie.getActors()) {
                         // caut actorul dupa care vreau sa filtrez, daca nu exista
                         if (actor.equals(action.getFilters().getContains().getActors().get(0))) {
                             foundActor = 1;
                         }
                     }
-
                     // elimin din lista curenta de filme filmele care nu contin actorul respectiv
                     // la final voi avea lista filtrata dupa actori
-//                    ArrayList<Movie> tempMoviesList = new ArrayList<>();
-//                    for (Movie currMovie : currinfo.getMoviesList()) {
-//                        Movie tempMovie = new Movie(currMovie);
-//                        tempMoviesList.add(tempMovie);
-//                    }
-//
-//                    if (foundActor == 0) {
-//                        tempMoviesList.remov
-                    }
-                }
-            }
-
-            // filtrez si dupa genuri
-            for (Movie movie : currinfo.getMoviesList()) {
-                int foundGenre = 0;
-                if (action.getFilters().getContains() != null
-                    && action.getFilters().getContains().getGenre() != null) {
-                    for (String genre : movie.getGenres()) {
-                        // caut genul dupa care vreau sa filtrez, daca nu exista
-                        if (genre.equals(action.getFilters().getContains().getGenre().get(0))) {
-                            foundGenre = 1;
-                        }
-                    }
-                    // elimin din lista curenta de filme filmele care nu contin actorul respectiv
-                    // la final voi avea lista filtrata dupa actori
-                    if (foundGenre == 0) {
-                        // mai mod
+                    if (foundActor == 0) {
                         currinfo.getMoviesList().remove(movie);
                     }
-
                 }
             }
 
-            Sort sort = action.getFilters().getSort();
-
-            if (sort.getDuration() != null) {
-                if (sort.getRating() == null) {
-                    if (sort.getDuration().equals("increasing")) {
-                        Collections.sort(currinfo.getMoviesList(), new SortNullIncreasing());
-                    } else if (sort.getDuration().equals("decreasing")) {
-                        Collections.sort(currinfo.getMoviesList(), new SortNullDecreasing());
-                    }
-                } else if (sort.getRating().equals("increasing")) {
-                    if (sort.getDuration().equals("increasing")) {
-                        Collections.sort(currinfo.getMoviesList(), new SortIncreasingIncreasing());
-                    } else if (sort.getDuration().equals("decreasing")) {
-                        Collections.sort(currinfo.getMoviesList(), new SortIncreasingDecreasing());
-                    }
-
-                } else if (sort.getRating().equals("decreasing")) {
-                    if (sort.getDuration().equals("increasing")) {
-                        Collections.sort(currinfo.getMoviesList(), new SortDecreasingIncreasing());
-                    } else if (sort.getDuration().equals("decreasing")) {
-                        Collections.sort(currinfo.getMoviesList(), new SortDecreasingDecreasing());
+        // filtrez si dupa genuri
+        for (Movie movie : currinfo.getMoviesList()) {
+            int foundGenre = 0;
+            if (action.getFilters().getContains() != null
+                    && action.getFilters().getContains().getGenre() != null) {
+                for (String genre : movie.getGenres()) {
+                    // caut genul dupa care vreau sa filtrez, daca nu exista
+                    if (genre.equals(action.getFilters().getContains().getGenre().get(0))) {
+                        foundGenre = 1;
                     }
                 }
-
-            } else if (sort.getDuration() == null) {
-                if (sort.getRating().equals("increasing")) {
-                    Collections.sort(currinfo.getMoviesList(), new SortIncreasingNull());
-                } else if (sort.getRating().equals("decreasing")) {
-                    Collections.sort(currinfo.getMoviesList(), new SortDecreasingNull());
+                // elimin din lista curenta de filme filmele care nu contin actorul respectiv
+                // la final voi avea lista filtrata dupa actori
+                if (foundGenre == 0) {
+                    currinfo.getMoviesList().remove(movie);
                 }
             }
-            // daca filter ul s a realizat cu succes, afisez output ul de succes
-            GenerateOutput.printFullOutput(currinfo, output, objectMapper);
-        }  else {
-            GenerateOutput.printError(output, objectMapper);
         }
+
+        Sort sort = action.getFilters().getSort();
+
+        if (sort.getDuration() != null) {
+            if (sort.getRating() == null) {
+                if (sort.getDuration().equals("increasing")) {
+                    Collections.sort(currinfo.getMoviesList(), new SortNullIncreasing());
+                } else if (sort.getDuration().equals("decreasing")) {
+                    Collections.sort(currinfo.getMoviesList(), new SortNullDecreasing());
+                }
+            } else if (sort.getRating().equals("increasing")) {
+                if (sort.getDuration().equals("increasing")) {
+                    Collections.sort(currinfo.getMoviesList(), new SortIncreasingIncreasing());
+                } else if (sort.getDuration().equals("decreasing")) {
+                    Collections.sort(currinfo.getMoviesList(), new SortIncreasingDecreasing());
+                }
+
+            } else if (sort.getRating().equals("decreasing")) {
+                if (sort.getDuration().equals("increasing")) {
+                    Collections.sort(currinfo.getMoviesList(), new SortDecreasingIncreasing());
+                } else if (sort.getDuration().equals("decreasing")) {
+                    Collections.sort(currinfo.getMoviesList(), new SortDecreasingDecreasing());
+                }
+            }
+
+        } else if (sort.getDuration() == null) {
+            if (sort.getRating().equals("increasing")) {
+                Collections.sort(currinfo.getMoviesList(), new SortIncreasingNull());
+            } else if (sort.getRating().equals("decreasing")) {
+                Collections.sort(currinfo.getMoviesList(), new SortDecreasingNull());
+            }
+        }
+        // daca filter ul s a realizat cu succes, afisez output ul de succes
+        GenerateOutput.printFullOutput(currinfo, output, objectMapper);
+    } else {
+        GenerateOutput.printError(output, objectMapper);
     }
+}
 
     /**
      * metoda prin care un user poate cumpara tokens
@@ -524,7 +515,7 @@ public final class OnPageActions {
 
         if (currinfo.getName().equals("upgrades")) {
             if (Integer.parseInt(currinfo.getUser().getCredentials().getBalance())
-                                >= action.getCount()) {
+                    >= action.getCount()) {
                 // adaug numarul de tokeni cumparati in contul user ului
                 // updatez acest numar si in user ul curent
                 int newTokensCount = currinfo.getUser().getTokensCount() + action.getCount();
@@ -533,7 +524,7 @@ public final class OnPageActions {
 
                 // scad din balance numarul de bani cheltuiti pe tokens
                 int newBalance = Integer.parseInt(currinfo.getUser().getCredentials().getBalance())
-                                                - action.getCount();
+                        - action.getCount();
                 currinfo.getUser().getCredentials().setBalance(Integer.toString(newBalance));
                 currinfo.getUser().getCredentials().setBalance(Integer.toString(newBalance));
 
@@ -561,28 +552,28 @@ public final class OnPageActions {
                                                 final ArrayNode output,
                                                 final ObjectMapper objectMapper) {
 
-       if (currinfo.getName().equals("upgrades")) {
-           if (currinfo.getUser().getTokensCount() >= 10) {
-               // contul user-ului devine premium, iar numarul sau de tokens scade cu 10
-               currinfo.getUser().getCredentials().setAccountType("premium");
+        if (currinfo.getName().equals("upgrades")) {
+            if (currinfo.getUser().getTokensCount() >= 10) {
+                // contul user-ului devine premium, iar numarul sau de tokens scade cu 10
+                currinfo.getUser().getCredentials().setAccountType("premium");
 
-               int newTokensCount = currinfo.getUser().getTokensCount() - 10;
-               currinfo.getUser().setTokensCount(newTokensCount);
+                int newTokensCount = currinfo.getUser().getTokensCount() - 10;
+                currinfo.getUser().setTokensCount(newTokensCount);
 
-               // actualize informatiile despre cont si tokens si in baza de date
-               // pentru acelasi user
-               for (User user : inputdata.getUsers()) {
-                   if (user.getCredentials().getName().equals(
-                           currinfo.getUser().getCredentials().getName())) {
-                       user.getCredentials().setAccountType("premium");
-                       user.setTokensCount(newTokensCount);
-                   }
-               }
-           }
-       } else {
-           GenerateOutput.printError(output, objectMapper);
-       }
-   }
+                // actualize informatiile despre cont si tokens si in baza de date
+                // pentru acelasi user
+                for (User user : inputdata.getUsers()) {
+                    if (user.getCredentials().getName().equals(
+                            currinfo.getUser().getCredentials().getName())) {
+                        user.getCredentials().setAccountType("premium");
+                        user.setTokensCount(newTokensCount);
+                    }
+                }
+            }
+        } else {
+            GenerateOutput.printError(output, objectMapper);
+        }
+    }
 
     /**
      * metoda prin care un user poate cumpara un film
@@ -593,9 +584,9 @@ public final class OnPageActions {
      * @param output
      * @param objectMapper
      */
-   private static void purchaseMethod(final CurrInfo currinfo, final ArrayList<CurrInfo> pagesList,
-                                      final Actions action, final InputData inputdata,
-                                      final ArrayNode output, final ObjectMapper objectMapper) {
+    private static void purchaseMethod(final CurrInfo currinfo, final ArrayList<CurrInfo> pagesList,
+                                       final Actions action, final InputData inputdata,
+                                       final ArrayNode output, final ObjectMapper objectMapper) {
 
         int alreadyPurchased = 0;
         if (currinfo.getName().equals("see details")) {
@@ -615,7 +606,7 @@ public final class OnPageActions {
                 // adaug filmul cumparat in lista de purchasedMovies a user-ului curent
                 // filmul deja e salvat in currinfo.movie de cand am intrat pe pag See details
                 if (currinfo.getUser().getCredentials().getAccountType().equals("premium")
-                    && currinfo.getUser().getNumFreePremiumMovies() > 0) {
+                        && currinfo.getUser().getNumFreePremiumMovies() > 0) {
 
                     currinfo.getUser().getPurchasedMovies().add(currinfo.getMovie());
 
@@ -657,7 +648,7 @@ public final class OnPageActions {
         } else {
             GenerateOutput.printError(output, objectMapper);
         }
-   }
+    }
 
     /**
      * metoda prin care un user vede un film
@@ -772,16 +763,16 @@ public final class OnPageActions {
                 GenerateOutput.printError(output, objectMapper);
             }
 
-             if (liked == 1) {
-                 // afisez filmul curent
-                 ArrayList<Movie> currMovie = new ArrayList<Movie>();
-                 currMovie.add(currinfo.getMovie());
+            if (liked == 1) {
+                // afisez filmul curent
+                ArrayList<Movie> currMovie = new ArrayList<Movie>();
+                currMovie.add(currinfo.getMovie());
 
-                 currinfo.setMovie(currinfo.getMovie());
-                 currinfo.setMoviesList(currMovie);
+                currinfo.setMovie(currinfo.getMovie());
+                currinfo.setMoviesList(currMovie);
 
-                 GenerateOutput.printFullOutput(currinfo, output, objectMapper);
-             }
+                GenerateOutput.printFullOutput(currinfo, output, objectMapper);
+            }
         } else {
             GenerateOutput.printError(output, objectMapper);
         }
@@ -820,7 +811,7 @@ public final class OnPageActions {
                                     if (ratedMovie.getName().equals(
                                             currinfo.getMoviesList().get(0).getName())) {
                                         ratedMovie.setRating(ratedMovie.getRating()
-                                                            + action.getRate());
+                                                + action.getRate());
                                         break outerloop;
                                     }
                                 }
@@ -906,6 +897,3 @@ public final class OnPageActions {
     }
 
 }
-
-
-
