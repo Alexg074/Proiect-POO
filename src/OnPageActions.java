@@ -437,8 +437,14 @@ public final class OnPageActions {
 
                     // elimin din lista curenta de filme filmele care nu contin actorul respectiv
                     // la final voi avea lista filtrata dupa actori
-                    if (foundActor == 0) {
-                        currinfo.getMoviesList().remove(movie);
+//                    ArrayList<Movie> tempMoviesList = new ArrayList<>();
+//                    for (Movie currMovie : currinfo.getMoviesList()) {
+//                        Movie tempMovie = new Movie(currMovie);
+//                        tempMoviesList.add(tempMovie);
+//                    }
+//
+//                    if (foundActor == 0) {
+//                        tempMoviesList.remov
                     }
                 }
             }
@@ -457,7 +463,7 @@ public final class OnPageActions {
                     // elimin din lista curenta de filme filmele care nu contin actorul respectiv
                     // la final voi avea lista filtrata dupa actori
                     if (foundGenre == 0) {
-                        // mai modif?
+                        // mai mod
                         currinfo.getMoviesList().remove(movie);
                     }
 
@@ -466,27 +472,26 @@ public final class OnPageActions {
 
             Sort sort = action.getFilters().getSort();
 
-            if (sort.getRating() == null) {
-                if (sort.getDuration().equals("increasing")) {
-                    Collections.sort(currinfo.getMoviesList(), new SortNullIncreasing());
-                } else if (sort.getDuration().equals("decreasing")) {
-                    Collections.sort(currinfo.getMoviesList(), new SortNullDecreasing());
-                } else if (sort.getDuration() == null) {
-//                    GenerateOutput.printFullOutput(currinfo, output, objectMapper);
-                }
+            if (sort.getDuration() != null) {
+                if (sort.getRating() == null) {
+                    if (sort.getDuration().equals("increasing")) {
+                        Collections.sort(currinfo.getMoviesList(), new SortNullIncreasing());
+                    } else if (sort.getDuration().equals("decreasing")) {
+                        Collections.sort(currinfo.getMoviesList(), new SortNullDecreasing());
+                    }
+                } else if (sort.getRating().equals("increasing")) {
+                    if (sort.getDuration().equals("increasing")) {
+                        Collections.sort(currinfo.getMoviesList(), new SortIncreasingIncreasing());
+                    } else if (sort.getDuration().equals("decreasing")) {
+                        Collections.sort(currinfo.getMoviesList(), new SortIncreasingDecreasing());
+                    }
 
-            } else if (sort.getRating().equals("increasing")) {
-                if (sort.getDuration().equals("increasing")) {
-                    Collections.sort(currinfo.getMoviesList(), new SortIncreasingIncreasing());
-                } else if (sort.getDuration().equals("decreasing")) {
-                    Collections.sort(currinfo.getMoviesList(), new SortIncreasingDecreasing());
-                }
-
-            } else if (sort.getRating().equals("decreasing")) {
-                if (sort.getDuration().equals("increasing")) {
-                    Collections.sort(currinfo.getMoviesList(), new SortDecreasingIncreasing());
-                } else if (sort.getDuration().equals("decreasing")) {
-                    Collections.sort(currinfo.getMoviesList(), new SortDecreasingDecreasing());
+                } else if (sort.getRating().equals("decreasing")) {
+                    if (sort.getDuration().equals("increasing")) {
+                        Collections.sort(currinfo.getMoviesList(), new SortDecreasingIncreasing());
+                    } else if (sort.getDuration().equals("decreasing")) {
+                        Collections.sort(currinfo.getMoviesList(), new SortDecreasingDecreasing());
+                    }
                 }
 
             } else if (sort.getDuration() == null) {

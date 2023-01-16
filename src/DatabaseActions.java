@@ -91,7 +91,6 @@ public final class DatabaseActions {
                 break;
             }
         }
-
         // daca filmul nu mai exista in baza de date, il pot adauga
         if (exists == 0) {
             inputdata.getMovies().add(action.getAddedMovie());
@@ -144,7 +143,7 @@ public final class DatabaseActions {
                     } else {
                         // daca filmul nu e banat in nicio tara, notific fiecare user subscribed
                         okCountry = 1;
-                        // daca e totul ok, adaug notificarea in lista de notificari
+
                         Notification addedMovieNotification = new Notification();
                         addedMovieNotification.setMovieName(action.getAddedMovie().getName());
                         addedMovieNotification.setMessage("ADD");
@@ -155,7 +154,6 @@ public final class DatabaseActions {
             }
         }
     }
-
 
     /**
      * metoda ce sterge un film din baza de date
@@ -174,7 +172,7 @@ public final class DatabaseActions {
         }
 
         String deteledMovie = action.getDeletedMovie();
-        // in primul rand pot sterge filmul doar daca acesta exista)))
+        // pot sterge filmul doar daca acesta exista
         int exists = 0;
         for (Movie movie : inputdata.getMovies()) {
             if (movie.equals(deteledMovie)) {
@@ -186,7 +184,7 @@ public final class DatabaseActions {
         if (exists == 0) {
             GenerateOutput.printError(output, objectMapper);
         } else {
-            // in primul rand elimin filmul din baza de date a filmelor
+            // intai elimin filmul din baza de date a filmelor
             removeMovie(inputdata.getMovies(), deteledMovie);
 
             // pentru fiecare user, ma uit in care din listele sale se mai regaseste filmul

@@ -5,16 +5,15 @@ Starting audit...
 [ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:44:9: switch without "default" clause. [MissingSwitchDefault]
 [ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:107:68: '15' is a magic number. [MagicNumber]
 [ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:164:60: '15' is a magic number. [MagicNumber]
-[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:249:5: Method length is 254 lines (max allowed is 150). [MethodLength]
-[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:474:56: Must have at least one statement. [EmptyBlock]
-[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:560:55: '10' is a magic number. [MagicNumber]
-[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:564:75: '10' is a magic number. [MagicNumber]
-[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:862: Line is longer than 100 characters (found 101). [LineLength]
+[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:249:5: Method length is 253 lines (max allowed is 150). [MethodLength]
+[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:559:55: '10' is a magic number. [MagicNumber]
+[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:563:75: '10' is a magic number. [MagicNumber]
+[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/OnPageActions.java:861: Line is longer than 100 characters (found 101). [LineLength]
 [ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/User.java:3:17: Using the '.*' form of import should be avoided - java.util.*. [AvoidStarImport]
 [ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/Test.java:9:28: Using the '.*' form of import should be avoided - java.util.concurrent.*. [AvoidStarImport]
-[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/Test.java:211: Line is longer than 100 characters (found 120). [LineLength]
+[ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/Test.java:211: Line is longer than 100 characters (found 117). [LineLength]
 [ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/Main.java:9:1: Utility classes should not have a public or default constructor. [HideUtilityClassConstructor]
 [ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/Main.java:10:5: Missing a Javadoc comment. [MissingJavadocMethod]
 [ERROR] /Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/./src/BackAction.java:6:1: Utility classes should not have a public or default constructor. [HideUtilityClassConstructor]
 Audit done.
-Checkstyle ends with 17 errors.
+Checkstyle ends with 16 errors.
