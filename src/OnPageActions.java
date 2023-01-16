@@ -422,10 +422,7 @@ public final class OnPageActions {
 
                     // elimin din lista curenta de filme filmele care nu contin actorul respectiv
                     // la final voi avea lista filtrata dupa actori
-                    if (foundActor == 0) {
-
-
-                    }
+                    if (foundActor == 0)
                         currinfo.getMoviesList().remove(movie);
                 }
             }
@@ -442,8 +439,12 @@ public final class OnPageActions {
                     }
                     // elimin din lista curenta de filme filmele care nu contin actorul respectiv
                     // la final voi avea lista filtrata dupa actori
-                    if (foundGenre == 0)
+                    if (foundGenre == 0) {
+
+
                         currinfo.getMoviesList().remove(movie);
+                    }
+
                 }
             }
 
