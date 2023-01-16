@@ -17,14 +17,12 @@ public class Main {
 
             ArrayNode output = objectMapper.createArrayNode();
 
-            // array de currinfo, ce va contine paginile vizitate
+            // lista de currinfo, ce va contine paginile vizitate
             ArrayList<CurrInfo> pagesList = new ArrayList<>();
 
             // retin pagina curenta la fiecare pas
             CurrInfo currPage = new CurrInfo();
             currPage.setName("Homepage neautentificat");
-
-//            pagesList.add(currPage);
 
             for (Actions action : inputdata.getActions()) {
                 // verific de ce tip este actiunea curenta primita
@@ -52,8 +50,19 @@ public class Main {
                     BackAction backAction = BackAction.getInstance();
                     backAction.backMethod(currPage, pagesList, action, inputdata,
                                             output, objectMapper);
+                }
+            }
 
-                    // GenerateOutput.printError(output, objectMapper);
+            if (currPage.getUser() != null) {
+                if (currPage.getUser().getNotifications() == null) {
+                    currPage.getUser().setNotifications(new ArrayList<Notification>());
+                }
+
+                if (currPage.getUser().getCredentials().getAccountType().equals("premium")) {
+                    currPage.setName("Premium User");
+                    currPage.getUser().getNotifications().add(new Notification(
+                                    "No recommendation", "Recommendation"));
+                    GenerateOutput.printFullOutput(currPage, output, objectMapper);
                 }
             }
 

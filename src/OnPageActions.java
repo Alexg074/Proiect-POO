@@ -883,6 +883,7 @@ public final class OnPageActions {
                         subscribed = 1;
                         // creez lista de genuri subscribed
                         currinfo.getUser().getSubscribedGenres().add(genre);
+                        break;
                     }
                 }
             }

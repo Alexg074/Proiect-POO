@@ -208,7 +208,7 @@ public final class Test {
 //    private static Future<Object> createTimerTask(final String[] argv) {
 //        ExecutorService executor = Executors.newCachedThreadPool();
 //        Callable<Object> task = () -> {
-//            if (argv[0].equals("/Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/checker/resources/in/basic_1.json")) {
+//            if (argv[0].equals("/Users/alex.g/IdeaProjects/Proiect-POO-Etapa-2/checker/resources/in/basic_6.json")) {
 //                Main.main(argv);
 //                return null;
 //            }

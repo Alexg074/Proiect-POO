@@ -45,10 +45,6 @@ public final class GenerateOutput {
         outputUser.setTokensCount(currinfo.getUser().getTokensCount());
         outputUser.setNumFreePremiumMovies(currinfo.getUser().getNumFreePremiumMovies());
 
-        if (outputUser.getCredentials().getAccountType().equals("premium")) {
-            outputUser.setNotifications(currinfo.getUser().getNotifications());
-        }
-
         // deep copy pentru fiecare lista de movies a unui user,
         // pentru a afisa corect informatiile finale
         ArrayList<Movie> newPurchasedMoviesList = new ArrayList<>();
@@ -104,45 +100,22 @@ public final class GenerateOutput {
             newRatedMoviesList.add(newMovie);
         }
 
-        // afisare notifications
-        ArrayList<Notification> newNotificationsList = new ArrayList<>();
-
-        if (currinfo.getUser().getNotifications() != null) {
-            for (Notification notification : currinfo.getUser().getNotifications()) {
-                Notification newNotification = new Notification(notification.getMovieName(),
-                        notification.getMessage());
-
-                // la finalul actiunilor afisez o recomandare pt user ul premium
-                if (currinfo.getUser().getCredentials().getAccountType().equals("premium")) {
-                    // daca nu a cumparat filmul => nicio recomandare
-                    if (currinfo.getUser().getPurchasedMovies() == null) {
-                        Notification premiumNotification = new Notification();
-                        premiumNotification.setMovieName("No recommendation");
-                        premiumNotification.setMessage("Recommendation");
-
-                        currinfo.getUser().getNotifications().add(premiumNotification);
-                    }
-
-                    // sortez descrescator filmele in functie de nr de like-uri
-
-                    Notification premiumNotification = new Notification();
-                    premiumNotification.setMessage("Recommendation");
-                    currinfo.getUser().getNotifications().add(premiumNotification);
-
-                }
-                newNotificationsList.add(newNotification);
-            }
-        }
-
         // adaug listele de movies in user
         outputUser.setPurchasedMovies(newPurchasedMoviesList);
         outputUser.setWatchedMovies(newWatchedMoviesList);
         outputUser.setLikedMovies(newLikedMoviesList);
         outputUser.setRatedMovies(newRatedMoviesList);
-        outputUser.setNotifications(newNotificationsList);
+
+        // adaugarea notificarilor in output
+        outputUser.setNotifications(currinfo.getUser().getNotifications());
 
         fullOutput.putPOJO("error", null);
-        fullOutput.putPOJO("currentMoviesList", outputMoviesList);
+
+        if (currinfo.getName().equals("Premium User")) {
+            fullOutput.putPOJO("currentMoviesList", null);
+        } else {
+            fullOutput.putPOJO("currentMoviesList", outputMoviesList);
+        }
         fullOutput.putPOJO("currentUser", outputUser);
     }
 }
