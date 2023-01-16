@@ -7,7 +7,7 @@ public final class CurrInfo {
 
     CurrInfo() { }
 
-    CurrInfo(CurrInfo newCurrInfo) {
+    CurrInfo(final CurrInfo newCurrInfo) {
 
         if (this.getUser() == null) {
             this.setUser(new User());

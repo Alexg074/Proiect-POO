@@ -16,7 +16,7 @@ class Movie {
 
     Movie() { }
 
-    public Movie(Movie movie) {
+    Movie(final Movie movie) {
         this.name = movie.getName();
         this.year = movie.getYear();
         this.duration = movie.getDuration();

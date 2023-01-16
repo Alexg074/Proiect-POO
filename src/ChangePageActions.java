@@ -1,6 +1,5 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
 
@@ -14,6 +13,10 @@ public final class ChangePageActions {
 
     private ChangePageActions() { }
 
+    /**
+     * Singleton pentru changePageActions
+     * @return
+     */
     public static ChangePageActions getInstance() {
         if (instance == null) {
             instance = new ChangePageActions();
@@ -21,9 +24,18 @@ public final class ChangePageActions {
         return instance;
     }
 
+    /**
+     * metoda ce trateaza feature-urile posibile ale unei actiuni de tip "change page"
+     * @param currinfo
+     * @param pagesList
+     * @param action
+     * @param inputdata
+     * @param output
+     * @param objectMapper
+     */
     public void changePageMethod(final CurrInfo currinfo, final ArrayList<CurrInfo> pagesList,
-                                 Actions action, final InputData inputdata, final ArrayNode output,
-                                 final ObjectMapper objectMapper) {
+                                 final Actions action, final InputData inputdata,
+                                 final ArrayNode output, final ObjectMapper objectMapper) {
 
         // retin pagina actiunii curente de changepage
         String page = action.getPage();
@@ -61,8 +73,8 @@ public final class ChangePageActions {
      * @param objectMapper
      */
     private static void loginMethod(final CurrInfo currinfo, final ArrayList<CurrInfo> pagesList,
-                                    Actions action, final InputData inputdata, final ArrayNode output,
-                                    final ObjectMapper objectMapper) {
+                                    final Actions action, final InputData inputdata,
+                                    final ArrayNode output, final ObjectMapper objectMapper) {
         /**
          * daca ma aflu pe pag corecta ma pot muta pe cea de login
          * schimb apoi numele paginii in "login"
@@ -88,8 +100,8 @@ public final class ChangePageActions {
      * @param objectMapper
      */
     private static void registerMethod(final CurrInfo currinfo, final ArrayList<CurrInfo> pagesList,
-                                       Actions action, final InputData inputdata, final ArrayNode output,
-                                       final ObjectMapper objectMapper) {
+                                       final Actions action, final InputData inputdata,
+                                       final ArrayNode output, final ObjectMapper objectMapper) {
 
         if (currinfo.getName().equals("Homepage neautentificat")) {
             currinfo.setName(action.getPage());
@@ -112,8 +124,8 @@ public final class ChangePageActions {
      * @param objectMapper
      */
     private static void logoutMethod(final CurrInfo currinfo, final ArrayList<CurrInfo> pagesList,
-                                     Actions action, final InputData inputdata, final ArrayNode output,
-                                     final ObjectMapper objectMapper) {
+                                     final Actions action, final InputData inputdata,
+                                     final ArrayNode output, final ObjectMapper objectMapper) {
 
         String currPage = currinfo.getName();
         if (currPage.equals("Homepage autentificat") || currPage.equals("movies")
@@ -142,8 +154,8 @@ public final class ChangePageActions {
      * @param objectMapper
      */
     private static void moviesMethod(final CurrInfo currinfo, final ArrayList<CurrInfo> pagesList,
-                                     Actions action, final InputData inputdata, final ArrayNode output,
-                                     final ObjectMapper objectMapper) {
+                                     final Actions action, final InputData inputdata,
+                                     final ArrayNode output, final ObjectMapper objectMapper) {
 
         String currPage = currinfo.getName();
         if (currPage.equals("Homepage autentificat") || currPage.equals("upgrades")
@@ -164,8 +176,9 @@ public final class ChangePageActions {
                     }
                 }
                 // daca filmul e nebanat, il adaug
-                if (ok == 1)
+                if (ok == 1) {
                     visibleMoviesList.add(movie);
+                }
             }
 
             // setez lista de filme vizibile pt user ul curent
@@ -189,9 +202,10 @@ public final class ChangePageActions {
      * @param output
      * @param objectMapper
      */
-    private static void seeDetailsMethod(final CurrInfo currinfo, final ArrayList<CurrInfo> pagesList,
-                                         Actions action, final InputData inputdata, final ArrayNode output,
-                                         final ObjectMapper objectMapper) {
+    private static void seeDetailsMethod(final CurrInfo currinfo,
+                                         final ArrayList<CurrInfo> pagesList,
+                                         final Actions action, final InputData inputdata,
+                                         final ArrayNode output, final ObjectMapper objectMapper) {
 
         String currPage = currinfo.getName();
         if (currPage.equals("movies") || currPage.equals("see details")) {
@@ -239,11 +253,13 @@ public final class ChangePageActions {
      * @param objectMapper
      */
     private static void upgradesMethod(final CurrInfo currinfo, final ArrayList<CurrInfo> pagesList,
-                                       Actions action, final InputData inputdata, final ArrayNode output,
-                                       final ObjectMapper objectMapper) {
+                                       final Actions action, final InputData inputdata,
+                                       final ArrayNode output, final ObjectMapper objectMapper) {
 
         String currPage = currinfo.getName();
-        if (currPage.equals("Homepage autentificat") || currPage.equals("movies") || currPage.equals("see details")) {
+        if (currPage.equals("Homepage autentificat")
+                || currPage.equals("movies") || currPage.equals("see details")) {
+
             currinfo.setName(action.getPage());
 
             // adaug in lista de pagini pagina pe care m-am mutat

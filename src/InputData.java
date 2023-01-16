@@ -11,6 +11,10 @@ public final class InputData {
         return users;
     }
 
+    /**
+     * deep copy pentru lista de useri
+     * @param users
+     */
     public void setUsers(final ArrayList<User> users) {
         if (users == null) {
             this.users = new ArrayList<User>();
@@ -24,7 +28,7 @@ public final class InputData {
     }
 
     /**
-     * deep copy pentru array-ul de movies
+     * deep copy pentru lista de movies
      * @param movies
      */
 

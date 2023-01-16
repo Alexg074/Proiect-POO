@@ -21,7 +21,7 @@ class User {
         this.credentials = new Credentials(name, password, accountType, country, balance);
     }
 
-    User(Credentials credentials) {
+    User(final Credentials credentials) {
         // copiez camp cu camp credentials urile in clasa user
         this.credentials = new Credentials(credentials.getName(), credentials.getPassword(),
                                             credentials.getAccountType(), credentials.getCountry(),
@@ -104,7 +104,7 @@ class User {
         return notifications;
     }
 
-    public void setNotifications(ArrayList<Notification> notifications) {
+    public void setNotifications(final ArrayList<Notification> notifications) {
         if (notifications == null) {
             this.notifications = new ArrayList<Notification>();
         } else {
@@ -115,7 +115,7 @@ class User {
         return subscribedGenres;
     }
 
-    public void setSubscribedGenres(ArrayList<String> subscribedGenres) {
+    public void setSubscribedGenres(final ArrayList<String> subscribedGenres) {
         if (subscribedGenres == null) {
             this.subscribedGenres = new ArrayList<String>();
         } else {

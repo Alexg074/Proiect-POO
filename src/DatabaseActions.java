@@ -1,13 +1,19 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
-import java.security.CodeSigner;
 import java.util.ArrayList;
 
+/**
+ * clasa ce contine metodele pentru actiunile de tip "database" - add si delete
+ */
 public final class DatabaseActions {
     private static DatabaseActions instance = null;
     private DatabaseActions() { }
 
+    /**
+     * Singleton pentru databaseActions
+     * @return
+     */
     public static DatabaseActions getInstance() {
         if (instance == null) {
             instance = new DatabaseActions();
@@ -15,12 +21,19 @@ public final class DatabaseActions {
         return instance;
     }
 
+    /**
+     * metoda ce trateaza feature-urile posibile ale unei actiuni de tip "database"
+     * @param currinfo
+     * @param action
+     * @param inputdata
+     * @param output
+     * @param objectMapper
+     */
     public void databaseMethod(final CurrInfo currinfo, final Actions action,
                                  final InputData inputdata, final ArrayNode output,
                                  final ObjectMapper objectMapper) {
 
         String feature = action.getFeature();
-
         switch (feature) {
             case "add":
                 addMethod(currinfo, action, inputdata, output, objectMapper);
@@ -34,7 +47,8 @@ public final class DatabaseActions {
     }
 
     /**
-     * metoda generica ce elimina un film anume dintr-o lista de filme, daca exista in acea lista (helpful later on)
+     * metoda generica ce elimina un film anume dintr-o lista de filme,
+     * daca exista in acea lista (helpful later on)
      * @param movies - lista de filme in care caut
      * @param searchedMovie - filmul cautat
      * @return
@@ -63,8 +77,9 @@ public final class DatabaseActions {
                                     final InputData inputdata, final ArrayNode output,
                                     final ObjectMapper objectMapper) {
 
-        if (currinfo.getUser().getNotifications() == null)
+        if (currinfo.getUser().getNotifications() == null) {
             currinfo.getUser().setNotifications(new ArrayList<Notification>());
+        }
 
         // pot adauga un film in baza de date indiferent de unde ma aflu
         // daca exista deja in baza de date => eroare
@@ -101,8 +116,9 @@ public final class DatabaseActions {
                         break;
                     }
                     // daca am gasit macar un gen la care e abonat user ul, ies din for ul mare
-                    if (subscribed == 1)
+                    if (subscribed == 1) {
                         break genresloop;
+                    }
                 }
 
                 if (subscribed == 1) {
@@ -126,7 +142,7 @@ public final class DatabaseActions {
                             }
                         }
                     } else {
-                        // daca filmul nu e banat in nicio tara, notific fiecare user care e subscribed
+                        // daca filmul nu e banat in nicio tara, notific fiecare user subscribed
                         okCountry = 1;
                         // daca e totul ok, adaug notificarea in lista de notificari
                         Notification addedMovieNotification = new Notification();
@@ -153,8 +169,9 @@ public final class DatabaseActions {
                                           final InputData inputdata, final ArrayNode output,
                                           final ObjectMapper objectMapper) {
 
-        if (currinfo.getUser().getNotifications() == null)
+        if (currinfo.getUser().getNotifications() == null) {
             currinfo.getUser().setNotifications(new ArrayList<Notification>());
+        }
 
         String deteledMovie = action.getDeletedMovie();
         // in primul rand pot sterge filmul doar daca acesta exista)))

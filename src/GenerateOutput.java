@@ -2,10 +2,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
-public class GenerateOutput {
+public final class GenerateOutput {
 
     static void printError(final ArrayNode output,
                            final ObjectMapper objectMapper) {
@@ -32,10 +31,11 @@ public class GenerateOutput {
             Movie outputMovie = new Movie(movie);
 
             // calculez rating-ul pt a afisa corect
-            if (outputMovie.getNumRatings() > 0)
+            if (outputMovie.getNumRatings() > 0) {
                 outputMovie.setRating(outputMovie.getRating() / outputMovie.getNumRatings());
-            else
+            } else {
                 outputMovie.setRating(0);
+            }
 
             outputMoviesList.add(outputMovie);
         }
@@ -45,19 +45,22 @@ public class GenerateOutput {
         outputUser.setTokensCount(currinfo.getUser().getTokensCount());
         outputUser.setNumFreePremiumMovies(currinfo.getUser().getNumFreePremiumMovies());
 
-        if (outputUser.getCredentials().getAccountType().equals("premium"))
+        if (outputUser.getCredentials().getAccountType().equals("premium")) {
             outputUser.setNotifications(currinfo.getUser().getNotifications());
+        }
 
-        // deep copy pentru fiecare lista de movies a unui user, pentru a afisa corect informatiile finale
+        // deep copy pentru fiecare lista de movies a unui user,
+        // pentru a afisa corect informatiile finale
         ArrayList<Movie> newPurchasedMoviesList = new ArrayList<>();
         for (Movie movie : currinfo.getUser().getPurchasedMovies()) {
             Movie newMovie = new Movie(movie);
 
             // calculez rating-ul pentru a afisa corect
-            if (newMovie.getNumRatings() > 0)
+            if (newMovie.getNumRatings() > 0) {
                 newMovie.setRating(newMovie.getRating() / newMovie.getNumRatings());
-            else
+            } else {
                 newMovie.setRating(0);
+            }
 
             newPurchasedMoviesList.add(newMovie);
         }
@@ -66,10 +69,11 @@ public class GenerateOutput {
         for (Movie movie : currinfo.getUser().getWatchedMovies()) {
             Movie newMovie = new Movie(movie);
 
-            if (newMovie.getNumRatings() > 0)
+            if (newMovie.getNumRatings() > 0) {
                 newMovie.setRating(newMovie.getRating() / newMovie.getNumRatings());
-            else
+            } else {
                 newMovie.setRating(0);
+            }
 
             newWatchedMoviesList.add(newMovie);
         }
@@ -78,10 +82,11 @@ public class GenerateOutput {
         for (Movie movie : currinfo.getUser().getLikedMovies()) {
             Movie newMovie = new Movie(movie);
 
-            if (newMovie.getNumRatings() > 0)
+            if (newMovie.getNumRatings() > 0) {
                 newMovie.setRating(newMovie.getRating() / newMovie.getNumRatings());
-            else
+            } else {
                 newMovie.setRating(0);
+            }
 
             newLikedMoviesList.add(newMovie);
         }
@@ -90,10 +95,11 @@ public class GenerateOutput {
         for (Movie movie : currinfo.getUser().getRatedMovies()) {
             Movie newMovie = new Movie(movie);
 
-            if (newMovie.getNumRatings() > 0)
+            if (newMovie.getNumRatings() > 0) {
                 newMovie.setRating(newMovie.getRating() / newMovie.getNumRatings());
-            else
+            } else {
                 newMovie.setRating(0);
+            }
 
             newRatedMoviesList.add(newMovie);
         }
@@ -103,7 +109,8 @@ public class GenerateOutput {
 
         if (currinfo.getUser().getNotifications() != null) {
             for (Notification notification : currinfo.getUser().getNotifications()) {
-                Notification newNotification = new Notification(notification.getMovieName(), notification.getMessage());
+                Notification newNotification = new Notification(notification.getMovieName(),
+                                                                notification.getMessage());
 
                 // la finalul actiunilor afisez o recomandare pt user ul premium
             if (currinfo.getUser().getCredentials().getAccountType().equals("premium")) {
@@ -126,7 +133,6 @@ public class GenerateOutput {
                 newNotificationsList.add(newNotification);
             }
         }
-
 
         // adaug listele de movies in user
         outputUser.setPurchasedMovies(newPurchasedMoviesList);

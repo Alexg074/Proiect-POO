@@ -1,7 +1,6 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,21 +30,26 @@ public class Main {
                 // verific de ce tip este actiunea curenta primita
                 if (action.getType().equals("on page")) {
                     OnPageActions onPageActions = OnPageActions.getInstance();
-                    onPageActions.onPageMethod(currPage, pagesList, action, inputdata, output, objectMapper);
+                    onPageActions.onPageMethod(currPage, pagesList, action,
+                                                inputdata, output, objectMapper);
 
                 } else if (action.getType().equals("change page")) {
                     ChangePageActions changePageActions = ChangePageActions.getInstance();
-                    changePageActions.changePageMethod(currPage, pagesList, action, inputdata, output, objectMapper);
+                    changePageActions.changePageMethod(currPage, pagesList, action,
+                                                        inputdata, output, objectMapper);
 
                 } else if (action.getType().equals("database")) {
                     if (action.getFeature().equals("add")) {
-                        DatabaseActions.addMethod(currPage, action, inputdata, output, objectMapper);
+                        DatabaseActions.addMethod(currPage, action, inputdata,
+                                                    output, objectMapper);
                     } else if (action.getFeature().equals("delete")) {
-                        DatabaseActions.deleteMethod(currPage, action, inputdata, output, objectMapper);
+                        DatabaseActions.deleteMethod(currPage, action, inputdata,
+                                                        output, objectMapper);
                     }
 
                 } else if (action.getType().equals("back")) {
-                    BackAction.backMethod(currPage, pagesList, action, inputdata, output, objectMapper);
+                    BackAction.backMethod(currPage, pagesList, action, inputdata,
+                                            output, objectMapper);
 
                     // GenerateOutput.printError(output, objectMapper);
                 }

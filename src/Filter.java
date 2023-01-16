@@ -2,7 +2,7 @@ public final class Filter {
     private Sort sort;
     private Contains contains;
 
-    Filter () { }
+    Filter() { }
 
     public Sort getSort() {
         return sort;
